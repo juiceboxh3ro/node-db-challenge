@@ -7,8 +7,11 @@ exports.seed = function(knex) {
       return knex('resources').insert([
         {
           name: 'Computer',
-          description: 'You\'ll need it probably',
-          project_id: 1
+          description: 'You\'ll need it probably'
+        },
+        {
+          name: 'Tablet',
+          description: 'You probably won\'t need it'
         }
       ]);
     });

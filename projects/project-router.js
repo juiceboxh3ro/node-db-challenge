@@ -44,32 +44,30 @@ router.get('/resources', (req, res) => {
   })
 })
 
-// add resource for a project
-router.post('/:id/resource', (req, res) => {
-  const newResource = req.body
-  const id = req.params.id
-  newResource.project_id = id
-  
-  // check if the project exists
-  Projects.findProject(id)
-  .then(response => {
-    if(!response) {
-      res.status(400).json({ message: 'No project at that ID', data: response })
-    } else {
-      if(newResource) {
-        Projects.newResource(newResource)
-        .then(response => {
-          console.log(response)
-          res.status(201).json(response)
-        })
-        .catch(err => {
-          res.status(500).json({ message: 'Failed to add resource', data: err })
-        })
-      } else {
-        res.status(400).json({ message: 'Missing body' })
-      }
-    }
-  })
+// add resource for projects
+router.post('/resource', (req, res) => {
+
+  const newResource = {
+    name: req.body.name,
+    description: req.body.description
+  }
+
+  const ids = {
+    project_id: req.body.project_id,
+    resource_id: req.body.resource_id
+  }
+
+  if(req.body) {
+    Projects.newResource(newResource, ids)
+    .then(response => {
+      console.log(response)
+      res.status(201).json(response)
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Failed to add resource', data: err })
+    })
+  }
+
 })
 
 // add a task to a project

@@ -24,20 +24,27 @@ function newProject(project) {
 }
 
 function getResources() {
-  return db('resources')
+  /*
+    SELECT r.name, r.description, p.name, p.description
+    FROM project_resources AS pr
+    JOIN projects AS p ON p.id = pr.project_id
+    JOIN resources AS r ON r.id = pr.resource_id
+  */
+ return db('project_resources AS pr')
+  .join('projects AS p', 'p.id', 'pr.project_id')
+  .join('resources AS r', 'r.id', 'pr.resource_id')
+  .select('r.name AS r_name', 'r.id AS r_id', 'r.description AS r_description', 'p.name AS p_name', 'p.id AS p_id', 'p.description AS p_description')
 }
 
 function findResource(id) {
   return db('resources').where({ id }).first()
 }
 
-function newResource(resource) {
-  return db('resources')
-    .insert(resource, 'id')
-    .then(([id]) => {
-      return findResource(id)
-    }
-  )
+function newResource(resource, ids) {
+  return db('resources').insert(resource, 'id')
+  .then(() => {
+    return db('project_resources').insert(ids, 'id')
+  })
 }
 
 function getTasks(id) {
@@ -69,7 +76,7 @@ function newTask(task) {
 
 /*
   - [x] adding resources.
-  - [x] retrieving a list of resources.
+  - [ ] retrieving a list of resources.
   - [x] adding projects.
   - [x] retrieving a list of projects.
   - [x] adding tasks.
