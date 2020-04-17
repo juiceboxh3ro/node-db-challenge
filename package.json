@@ -1,0 +1,29 @@
+{
+  "name": "05-Sprint-Challenge",
+  "version": "1.0.0",
+  "description": "In this challenge, you design and build a Data Model and a RESTful API that stores data into a Relational Database.",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juiceboxh3ro/node-db-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juiceboxh3ro/node-db-challenge/issues"
+  },
+  "homepage": "https://github.com/juiceboxh3ro/node-db-challenge#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.20.15",
+    "knex-cleaner": "^1.3.0",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
